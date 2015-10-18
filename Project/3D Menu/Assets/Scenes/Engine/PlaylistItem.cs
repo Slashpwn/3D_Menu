@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class PlaylistItem : MonoBehaviour {
-	string location;
-	string genre;
-	string artist;
-	string album;
-	string title;
+	public string location;
+	public string genre;
+	public string artist;
+	public string album;
+	public string title;
 
 	public PlaylistItem(string location, string genre, string artist, string album, string title){
 		this.location = location;
@@ -17,7 +17,7 @@ public class PlaylistItem : MonoBehaviour {
 
 	}
 
-	PlaylistItem(string location){
+	public PlaylistItem(string location){
 		this.location = location;
 		this.album = "Unknown album";
 		this.artist = "Unknown artist";

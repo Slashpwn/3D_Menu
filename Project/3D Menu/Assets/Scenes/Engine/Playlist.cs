@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class Playlist : MonoBehaviour {
-	PlaylistItem[] PLI;
-	string name;
-	int length;
-	int lastPlay;
+	public ArrayList PLI;
+	public PlaylistItem[] PL;
+	public string name;
+	public int length;
+	public int lastPlay;
 
 	public Playlist(string name){
 		this.name = name;
@@ -29,6 +30,11 @@ public class Playlist : MonoBehaviour {
 
 	PlaylistItem getNext(int count){
 
-		return PLI [count + 1];
+		return PL [count + 1];
+	}
+
+	void update(){
+		PL = (PlaylistItem[])PLI.ToArray ();
+
 	}
 }
