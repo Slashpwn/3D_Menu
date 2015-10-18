@@ -46,8 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scenes\Playlist.cs" />
-     <Compile Include="Assets\Scenes\PlaylistItem.cs" />
+     <Compile Include="Assets\Scenes\Engine\Main.cs" />
+     <Compile Include="Assets\Scenes\Engine\Playlist.cs" />
+     <Compile Include="Assets\Scenes\Engine\PlaylistItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

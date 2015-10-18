@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scenes\PlaylistItem.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scenes\Playlist.cs">
     <Files>
-      <File FileName="Assets\Scenes\PlaylistItem.cs" Line="6" Column="15" />
+      <File FileName="Assets\Scenes\Playlist.cs" Line="6" Column="2" />
+      <File FileName="Assets\Scenes\PlaylistItem.cs" Line="12" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

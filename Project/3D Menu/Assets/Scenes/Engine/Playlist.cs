@@ -3,9 +3,12 @@ using System.Collections;
 
 public class Playlist : MonoBehaviour {
 	PlaylistItem[] PLI;
+	string name;
+	int length;
+	int lastPlay;
 
-	Playlist(){
-
+	public Playlist(string name){
+		this.name = name;
 	
 	}
 
