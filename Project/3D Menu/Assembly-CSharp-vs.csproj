@@ -52,11 +52,11 @@
  <Reference Include="Id3">
  <HintPath>C:/Users/M/Documents/GitHub/3D_Menu/Project/3D Menu/Assets/Scenes/Engine/Libraries/Id3.dll</HintPath>
  </Reference>
- <Reference Include="Id3.WinForms">
- <HintPath>C:/Users/M/Documents/GitHub/3D_Menu/Project/3D Menu/Assets/Scenes/Engine/Libraries/Id3.WinForms.dll</HintPath>
- </Reference>
  <Reference Include="Id3.Files">
  <HintPath>C:/Users/M/Documents/GitHub/3D_Menu/Project/3D Menu/Assets/Scenes/Engine/Libraries/Id3.Files.dll</HintPath>
+ </Reference>
+ <Reference Include="Id3.WinForms">
+ <HintPath>C:/Users/M/Documents/GitHub/3D_Menu/Project/3D Menu/Assets/Scenes/Engine/Libraries/Id3.WinForms.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

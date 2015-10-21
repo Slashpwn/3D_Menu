@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Playlist : MonoBehaviour {
 	public ArrayList PLI;
-	public PlaylistItem[] PL;
-	public string name;
+	public List<PlaylistItem> PL = new List<PlaylistItem>();
+	public string title;
 	public int length;
 	public int lastPlay;
 
@@ -13,28 +14,37 @@ public class Playlist : MonoBehaviour {
 	
 	}
 
-	void add(){
-
-
-	}
-
-	void remove(){
-
+	void add(PlaylistItem item){
+		PL.Add (item);
+		length++;
 
 	}
 
-	void getNoOfItems(){
+	void remove(PlaylistItem item){
+		PL.Remove (item);
+		length--;
 
+	}
+
+	int getNoOfItems(){
+		return length;
 
 	}
 
-	PlaylistItem getNext(int count){
-
-		return PL [count + 1];
+	public PlaylistItem getNext(int count){
+		if (count + 1 < length) {
+						return PL [count + 1];
+				} else {
+			return PL[length-1]		;
+		}
 	}
 
-	void update(){
-		PL = (PlaylistItem[])PLI.ToArray ();
-
+	public PlaylistItem getPrev(int count){
+		if (count - 1 >= 0) {
+						return PL [count - 1];
+				} else {
+			return PL[0];		
+		}
 	}
+
 }

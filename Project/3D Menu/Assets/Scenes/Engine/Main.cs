@@ -1,22 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Id3;
 
 public class Main : MonoBehaviour {
-	ArrayList songpool;
+	List <PlaylistItem> songpool = new List<PlaylistItem>();
 	Playlist currentPlaylist;
 	PlaylistItem currentSong;
 	bool playlistPlay = true;
 	bool shuffle = false;
 	int count = 0;
-	ArrayList allPlaylists;
+	List<Playlist> allPlaylists = new List<Playlist>();
 	AudioSource player;
 	AudioClip clp;
 
+	//GameObject cube = new GameObject("cb");
+
 	// Use this for initialization
 	void Start () {
-				player = GetComponent<AudioSource> ();
+		//cube.AddComponent (MeshFilter);
+		//cube.AddComponent (MeshCollider);
+				//player = GetComponent<AudioSource> ();
 				loadAllPlaylists ();
 				loadSongpool ();
 
@@ -53,6 +58,12 @@ public class Main : MonoBehaviour {
 		}
 	}
 
+	void selector(){
+		foreach(PlaylistItem p in songpool){
+
+		}
+	}
+
 	void play(){
 		player.Play();
 	}
@@ -63,10 +74,11 @@ public class Main : MonoBehaviour {
 	}
 
 	void next(){
-		if(playlistPlay && count<currentPlaylist.length && !shuffle){
+		if(playlistPlay && !shuffle){
 
+				currentSong = currentPlaylist.getNext(count);
+				Debug.Log (currentSong.toString());
 			count++;
-			currentSong = currentPlaylist.PL[count];
 		}
 
 	}
@@ -81,10 +93,7 @@ public class Main : MonoBehaviour {
 
 	}
 
-	void getNext(){
 
-
-	}
 
 	void loadAllPlaylists(){
 
@@ -98,11 +107,12 @@ public class Main : MonoBehaviour {
 	void newPlaylist(string newName){
 		Playlist newPl = new Playlist (newName);
 		allPlaylists.Add (newPl);
+		currentPlaylist = newPl;
 
 	}
 
-	void deletePlaylist(){
-
+	void deletePlaylist(Playlist PL){
+		allPlaylists.Remove (PL);
 
 	}
 
@@ -113,13 +123,7 @@ public class Main : MonoBehaviour {
 			searchForFiles (d.FullName);		
 		
 		}
-		/*FileInfo[] info = dir.GetFiles("*.mp3");
-		foreach (FileInfo f in info) {
-			//PlaylistItem tempPI = ;
-			//songpool.Add(tempPI);
-			Debug.Log(f.Name);
-		}
-		*/
+
 		string fn = dir.FullName;
 		string[] musicFiles = Directory.GetFiles (@fn,"*.mp3");
 		foreach (string musicFile in musicFiles) {
@@ -138,9 +142,7 @@ public class Main : MonoBehaviour {
 
 					PlaylistItem newest = new PlaylistItem(musicFile,tag.Genre.Value, tag.Artists.Value, tag.Album.Value, tag.Title.Value);
 					Debug.Log (newest.toString());
-					if(newest != null){
-					//songpool.Add(newest);
-					}
+					songpool.Add(newest);
 				}			
 				
 				
