@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlaylistItem : MonoBehaviour {
+public class PlaylistItem : System.Object {
 	public string location;
 	public string genre;
 	public string artist;
@@ -23,6 +23,11 @@ public class PlaylistItem : MonoBehaviour {
 		this.artist = "Unknown artist";
 		this.genre = "Unknown genre";
 		this.title = "Unknown title";
+
+	}
+
+	public string toString(){
+		return(title + " by " + artist + " from " + album + ". Genre: " + genre);
 
 	}
 }

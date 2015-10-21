@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using Id3;
 
 public class Main : MonoBehaviour {
 	ArrayList songpool;
@@ -15,9 +16,10 @@ public class Main : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GetComponent<AudioSource>();
-		loadAllPlaylists ();
-		loadSongpool ();
+				player = GetComponent<AudioSource> ();
+				loadAllPlaylists ();
+				loadSongpool ();
+
 	}
 	
 	// Update is called once per frame
@@ -44,7 +46,10 @@ public class Main : MonoBehaviour {
 			Debug.Log ("Shuffle: "+shuffle);
 		}
 		if(Input.GetKeyUp("c")){
-			searchForFiles ("C:");
+			//searchForFiles ("C:/Users/M/Downloads/2003 - Andante");
+			//searchForFiles("C:/Users/M/Downloads/Radiohead - The Best Of Radiohead (2008) 320 vtwin88cube");
+			//searchForFiles("C:/Users/M/Downloads/Green Day - Greatest Hits (2CD)  2010");
+			searchForFiles("C:/Users/M/Downloads/TAYLOR SWIFT - DISCOGRAPHY (2006-14) [CHANNEL NEO]");
 		}
 	}
 
@@ -108,12 +113,41 @@ public class Main : MonoBehaviour {
 			searchForFiles (d.FullName);		
 		
 		}
-		FileInfo[] info = dir.GetFiles("*.mp3");
+		/*FileInfo[] info = dir.GetFiles("*.mp3");
 		foreach (FileInfo f in info) {
 			//PlaylistItem tempPI = ;
 			//songpool.Add(tempPI);
 			Debug.Log(f.Name);
 		}
+		*/
+		string fn = dir.FullName;
+		string[] musicFiles = Directory.GetFiles (@fn,"*.mp3");
+		foreach (string musicFile in musicFiles) {
+			using (var mp3 = new Mp3File(musicFile)) {
+
+				Id3Tag tag = mp3.GetTag (Id3TagFamily.FileStartTag);
+
+				if(tag != null){
+
+					/*
+					Debug.Log ("Title: " + tag.Title.Value);
+					Debug.Log ("Artist: " + tag.Artists.Value);
+					Debug.Log ("Album: " + tag.Album.Value);
+					Debug.Log("Genre: " + tag.Genre.Value);
+*/
+
+					PlaylistItem newest = new PlaylistItem(musicFile,tag.Genre.Value, tag.Artists.Value, tag.Album.Value, tag.Title.Value);
+					Debug.Log (newest.toString());
+					if(newest != null){
+					//songpool.Add(newest);
+					}
+				}			
+				
+				
+				
+			}
+		}
+
 
 	}
 
