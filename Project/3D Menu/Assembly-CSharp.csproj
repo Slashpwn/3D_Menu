@@ -48,17 +48,11 @@
      <Compile Include="Assets\Scenes\Engine\Main.cs" />
      <Compile Include="Assets\Scenes\Engine\Playlist.cs" />
      <Compile Include="Assets\Scenes\Engine\PlaylistItem.cs" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Id3">
  <HintPath>C:/Users/Jonas/Documents/GitHub/3D_Menu/Project/3D Menu/Assets/Scenes/Engine/Libraries/Id3.dll</HintPath>

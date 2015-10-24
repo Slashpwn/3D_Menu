@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Id3;
+//using Id3;
 
 public class Main : MonoBehaviour {
 	List <PlaylistItem> songpool = new List<PlaylistItem>();
