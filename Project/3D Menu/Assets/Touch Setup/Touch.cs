@@ -6,8 +6,7 @@ using System.Collections;
 public class Touch : MonoBehaviour {
 
 //For clicking on items
-GameObject Object_to_move; 
-
+GameObject Object_to_move;
 private float timer;
 
 //Current and previous frame vectors 
@@ -17,6 +16,7 @@ private Vector2 v2_current;
 private Vector2 v2_previous;
 //New vector from start to end vector 
 private float newVector; 
+
 // Camera
 public Camera myCamera;
 
@@ -25,7 +25,7 @@ private Vector3 velocity = Vector3.zero;
 public float smoothTime = 0.3F;
 
 //Zooming 
-public float ZoomComfortZone;
+public float zoomComfortZone;
 public byte zoomStrength; 
 public byte maxFov; 
 public byte minFov;
@@ -50,7 +50,22 @@ public byte minFov;
 		
 		//Will check if we're touching or not
 		if(Input.touchCount == 1) {
-			//Debug.Log("Debug: Touch Happened");			
+			//Debug.Log("Debug: Touch Happened");	
+			
+			/***********      MOVING CAMERA AND SELECTING    **************
+
+			/*A switch statement to check between 3 conditions: 
+			TouchPhase.Began: True if a touch Phase has begun. A timer is created with the Time class.
+			TouchPhase.Began: True if tap position has moved. Used for moving the x position of the myCamera 
+			variable, by using the transform.Translate(x, y, z). The timer is used to see if there has gone 
+			more than 0.1 (seconds??) since touch phase begun. This is done to differentiate between a single
+			tap and a move and a slide. 
+			TouchPhase.Ended: True if touch phase has ended. If it's ended we know it's a single tap. To 
+			select and object we need to send out a ray (theoretically infinite line from a point) from 
+			our cameras xy plane, for setting a ray starting position in screen we use the 
+			Camera.main.ScreenPointToRay(position of touch). And to check we hit anything with the 
+			ray we use the Physics.Raycast(ray, out RaycastHit). If we hit we we 
+			can "select" the object by using (hit.transform.name)*/
 			switch(Input.GetTouch(0).phase)
 			{
 				case TouchPhase.Began: 
@@ -171,17 +186,50 @@ public byte minFov;
 				}
 			}*/
 		}
+		/***********      ZOOMING    **************
+
+		To check if to fingers is on the screen we use the "Input.touchCount == 2". First finger is indexed 
+		at 0 and the other at 1. If both are moving then we will zoom. 
+		*/
 		if (Input.touchCount == 2 && Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(1).phase == TouchPhase.Moved)
 		{
-			//v2_currentFrame = Input.GetTouch(0).position - Input.GetTouch(1).position; 
-			//v2_previousFrame = (Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition)
-							   //- (Input.GetTouch(1).position - Input.GetTouch(1).deltaPosition); 
+			/*This is a little confusing but to save performance, instead of assigning and removing new variable
+			every frame I put all the calculations into a single variable. 
+			1. We create a new vector by subtracting the position of the touch of finger 0 with finger 1 
+			This the position of our current frame. To find the vector of our previous frame we subtract 
+			the current position of the fingers with the deltaPosition(change in position since last frame)
+			2. Then we take the magnitude of each of the new vectors and subtract them to get the difference in
+			the distance between the two vectors. */
+			
 			newVector = (Input.GetTouch(0).position - Input.GetTouch(1).position).magnitude 
 								- ((Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition)
 							   - (Input.GetTouch(1).position - Input.GetTouch(1).deltaPosition)).magnitude;
+			
+			//OR (worse performance)
+			
+			//v2_currentFrame = Input.GetTouch(0).position - Input.GetTouch(1).position; 
+			//v2_previousFrame = (Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition)
+							   //- (Input.GetTouch(1).position - Input.GetTouch(1).deltaPosition); 
 			//newVector = v2_currentFrame.magnitude - v2_previousFrame.magnitude;
-
-			if (Mathf.Abs(newVector) > ZoomComfortZone) {
+   
+			
+							   
+			/*Checking if the absolute(- becomes +) distance is more than a preset comfort zone*/
+			if (Mathf.Abs(newVector) > zoomComfortZone) {
+				/*
+				1. If the new vector is bigger than 0, we know the that we're zooming. Since the 
+				current frame is bigger than the previous. And if the new vector is less than 0 
+				then we're zooming out
+				2. fieldOfView is used to make a zoom effect, but we're not actually moving the camera 
+				position. We use Mathf.Clamp(value, min, max) to avoid zooming to close or too far out, the 
+				function clamps a value between min and max. We use Mathf.Lerp(value current, desired value, 
+				t). Lerp is linear interpolation between the to values depending on t, which is in a range of 
+				0-1. Time.deltaTime is time in seconds it took to complete last frame, by multiplying it with 
+				zoomStrength, the higher zoomStrength the faster we will zoom. Our start value will be the 
+				current fieldOfView and the the desired value is the the current fieldOfView + the distance
+				between 
+				
+				*/
 				if (newVector > 0)
 				{
 					//Zoom in 
