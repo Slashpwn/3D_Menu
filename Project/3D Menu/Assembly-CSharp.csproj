@@ -51,6 +51,8 @@
      <Compile Include="Assets\Engine\PlaylistItem.cs" />
      <Compile Include="Assets\Touch Setup\Touch.cs" />
      <None Include="Assets\Shaders\7_NormalMap.shader" />
+     <None Include="Assets\Shaders\Anisotropic  Lighting 1.shader" />
+     <None Include="Assets\Material\8_VertexAnimation.shader" />
      <None Include="Assets\Shaders\5_MultiLights.shader" />
      <None Include="Assets\Shaders\6_Texture.shader" />
  <Reference Include="UnityEngine.UI">
