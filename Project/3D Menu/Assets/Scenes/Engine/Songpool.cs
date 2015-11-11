@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Id3;
+//using Id3;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -14,7 +14,6 @@ public class Songpool : System.Object{
 	List<GameObject> labels = new List<GameObject>();
 	MonoBehaviour m = new MonoBehaviour();
 	List<Artist> artists = new List<Artist>();
-
 
 	// Use this for initialization
 	void Start () {
@@ -38,8 +37,8 @@ public class Songpool : System.Object{
 			cube.transform.position = new Vector3(cube.transform.position.x+i, cube.transform.position.y, cube.transform.position.z);
 			cube.name = "cube"+i;
 			GameObject label = new GameObject(cube.name+" label");
-			TextMesh tml = (TextMesh)label.AddComponent("TextMesh");
-			MeshRenderer mrl = (MeshRenderer)label.AddComponent("MeshRenderer");
+			TextMesh tml = (TextMesh)label.AddComponent<TextMesh>();
+			MeshRenderer mrl = (MeshRenderer)label.AddComponent<MeshRenderer>();
 			tml.text = cube.name;
 			tml.transform.position = cube.transform.position;
 			tml.offsetZ = 0;
@@ -70,9 +69,9 @@ public class Songpool : System.Object{
 		string fn = dir.FullName;
 		string[] musicFiles = Directory.GetFiles (@fn,"*.mp3");
 		foreach (string musicFile in musicFiles) {
-			using (var mp3 = new Mp3File(musicFile)) {
-				
-				Id3Tag tag = mp3.GetTag (Id3TagFamily.FileStartTag);
+			//using (var mp3 = new Mp3File(musicFile)) {
+				Mp3ID3 tag = new Mp3ID3(musicFile);
+				//Id3Tag tag = mp3.GetTag (Id3TagFamily.FileStartTag);
 				
 				if(tag != null){
 					
@@ -82,8 +81,9 @@ public class Songpool : System.Object{
 					Debug.Log ("Album: " + tag.Album.Value);
 					Debug.Log("Genre: " + tag.Genre.Value);
 */
-					
-					PlaylistItem newest = new PlaylistItem(musicFile,tag.Genre.Value, tag.Artists.Value, tag.Album.Value, tag.Title.Value);
+					//Debug.Log(tag.Artist);
+
+					PlaylistItem newest = new PlaylistItem(musicFile,tag.Genre, tag.Artist, tag.Album, tag.Title);
 					Debug.Log (newest.toString());
 					songpool.Add(newest);
 					Stream stream = new FileStream("songpool/"+songpool.Count+".bin", FileMode.Create, FileAccess.Write, FileShare.None);
@@ -93,7 +93,7 @@ public class Songpool : System.Object{
 				
 				
 				
-			}
+			//}
 		}
 		
 		
